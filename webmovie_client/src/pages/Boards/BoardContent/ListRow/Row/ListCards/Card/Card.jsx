@@ -10,7 +10,7 @@ import Tooltip from '@mui/material/Tooltip'
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-function Card() {
+function Card({ movie }) {
     const [isHovered, setIsHovered] = React.useState(false)
     const handleMouseEnter = () => {
         setIsHovered(true)
@@ -29,23 +29,24 @@ function Card() {
                 transform: isHovered ? 'scale(1.5)' : 'scale(1)',
                 borderRadius: isHovered ? '10px' : '10px',
                 zIndex: isHovered ? 3 : 0,
-                height: isHovered ? '300px' : '',
+                height: isHovered ? '300px' : ''
             }}>
-
-            <CardMedia sx={{ height: '140px', borderRadiusLeft: '6px', borderRadiusRight: '6px' }}
-                image={'https://images7.alphacoders.com/329/thumbbig-329808.webp'}
-            />
+            {movie?.poster &&
+                <CardMedia sx={{ height: '140px', borderRadiusLeft: '6px', borderRadiusRight: '6px' }}
+                    image={movie?.poster}
+                />
+            }
             {isHovered && (
                 <CardContent sx={{ p: 0, ml: 1, mt: 0.5 }}>
                     <Typography variant='body1' sx={{ fontFamily: 'cursive', maxWidth: '200px' }}>
-                        IronMan 3
-                        Thể loại: Action - Fantasy - Technology
+                        {movie?.title}
+                        Thể loại: {movie?.category}
                     </Typography>
                 </CardContent>
             )}
 
             <CardActions sx={{ m: 0 }}>
-                <Link to={'/movie'} style={{ textDecoration: 'none', color: 'inherit', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <Link to={`/movie?${movie._id}`} style={{ textDecoration: 'none', color: 'inherit', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                     <Tooltip title="Play"><Button size="small" startIcon={<PlayCircleOutlineIcon />} sx={{ color: 'red' }}></Button></Tooltip>
                 </Link>
                 <Tooltip title="Like"><Button size="small" startIcon={<ThumbUpOffAltIcon />} sx={{ color: (theme) => (theme.palette.mode === 'dark' ? 'white' : 'black') }}></Button></Tooltip>

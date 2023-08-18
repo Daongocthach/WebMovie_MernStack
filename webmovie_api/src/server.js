@@ -1,28 +1,38 @@
-import express from 'express'
-import { connectDb, getDB } from './config/mongodb'
-import { env } from './config/enviroment'
-import { apiV1 } from './routes/v1'
+const express = require('express')
+const bodyParser = require('body-parser')
+const mongoose = require('mongoose')
+const cookieParser = require('cookie-parser')
+const app = express()
+const path = require('path')
+const DB_MONGO = require('./config/db.config')
+const CONSTANT = require('./config/constant')
+const authRoute = require('./routes/auth')
+const userRoute = require('./routes/user')
+const movieRoute = require('./routes/movie')
+const cors = require('cors')
 
-const hostname = env.APP_HOST
-const port = env.APP_PORT
+app.use(cors())
+app.use(cookieParser())
+app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.json())
+app.use(function(req, res, next) {
+  res.header('Access-Control-Allow-Methods', 'POST, GET, OPTIONS')
+     next()
+})
 
-connectDb()
-  .then(() => console.log('Connectted successfully to database server!'))
-  .then(() => bootServer())
-  .catch(error => {
-    console.error(error)
-    process.exit(1)
+mongoose.connect(DB_MONGO.URL, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => {
+    console.log('Connected to MongoDB.');
+  })
+  .catch((error) => {
+    console.error('MongoDB connection error:', error);
   })
 
-const bootServer = () => {
-  const app = express()
+app.use('/api/auth', authRoute)
+app.use('/api/user', userRoute)
+app.use('/api/movie', movieRoute)
+const PORT = process.env.PORT || CONSTANT.PORT;
 
-  //Enable req.body data
-  app.use(express.json())
-
-  app.use('/v1', apiV1)
-
-  app.listen(port, hostname, () => {
-    console.log(`I'm running at ${hostname}:${port}/`)
-  })
-}
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}.`);
+})

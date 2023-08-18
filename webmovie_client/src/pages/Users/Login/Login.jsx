@@ -9,11 +9,29 @@ import AppBar from '../../../components/AppBar/AppBar'
 import Checkbox from '@mui/material/Checkbox'
 import { Typography } from '@mui/material'
 import { Link } from 'react-router-dom'
-const label = { inputProps: { 'aria-label': 'Checkbox demo' } }
 import { useColorScheme } from '@mui/material/styles'
+import { useNavigate } from 'react-router-dom'
+import userApi from '../../../apis/userApi'
+const label = { inputProps: { 'aria-label': 'Checkbox demo' } }
 
 function Login() {
-  const { _ ,setMode } = useColorScheme()
+  const navigate = useNavigate()
+  const { _, setMode } = useColorScheme()
+  var [email, setEmail] = React.useState('')
+  var [password, setPassword] = React.useState('')
+
+  const onFinish = () => {
+    userApi.login(email, password)
+      .then(function (response) {
+        alert('Login Successful')
+        navigate('/')
+        console.log(response)
+      })
+      .catch(function (error) {
+        console.log(error)
+        alert('Wrong Email or Password')
+      })
+  }
   setMode('dark')
   return (
     <Container disableGutters maxWidth={false} sx={{ height: '100vh' }}>
@@ -42,9 +60,9 @@ function Login() {
           bgcolor: 'black',
           opacity: 0.8,
           transform: 'translate(-50%, -30%)',
-          zIndex: 2,
+          zIndex: 2
         }}>
-          <h2 style={{ textAlign: 'center', color:'white' }}>Sign In</h2>
+          <h2 style={{ textAlign: 'center', color: 'white' }}>Sign In</h2>
           <Stack
             component="form"
             sx={{ m: 3 }}
@@ -52,18 +70,27 @@ function Login() {
           >
             <TextField
               id="filled-hidden-label-small"
-              defaultValue="Input Email"
+              placeholder='Input email'
               variant="filled"
               size="small"
+              onChange={e => setEmail(e.target.value)} // Lưu giá trị email vào biến state
             />
             <TextField
               id="filled-hidden-label-normal"
-              defaultValue="Input Password"
+              placeholder='Input password'
               variant="filled"
               size="small"
               color='white'
+              type="password"
+              onChange={e => setPassword(e.target.value)} // Lưu giá trị password vào biến state
             />
-            <Button sx={{ bgcolor: 'red', borderRadius: '5px', color: 'white', fontWeight: 'bold' }}>Sign In</Button>
+            <Button
+              sx={{ bgcolor: 'red', borderRadius: '5px', color: 'white', fontWeight: 'bold' }}
+              onClick={() => onFinish({ email, password })} // Gọi onFinish với giá trị email và password đã lưu
+            >
+              Sign In
+            </Button>
+
             <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
               <Box sx={{ display: 'flex', alignItems: 'center', m: 0 }}>
                 <Checkbox {...label} />

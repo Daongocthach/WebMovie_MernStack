@@ -1,6 +1,5 @@
 import ReactPlayer from 'react-player'
-import React from 'react'
-import videoPath from '../../assets/video.mp4'
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import Rating from '@mui/material/Rating'
 import Box from '@mui/material/Box'
@@ -8,24 +7,24 @@ import AppBar from '../../components/AppBar/AppBar'
 import { Typography } from '@mui/material'
 import Stack from '@mui/material/Stack'
 import Footer from '../../components/Footer/Footer'
-import TextField from '@mui/material/TextField'
-import Button from '@mui/material/Button'
 import CommentSection from './CommentSection'
+import movieApi from '../../apis/movieApi'
+import { useNavigate } from 'react-router-dom'
 
 function Movie() {
-  const [messages, setMessages] = React.useState([])
-  const [currentMessage, setCurrentMessage] = React.useState('')
-  const handleInputChange = (event) => {
-    setCurrentMessage(event.target.value)
-  }
+  const navigate = useNavigate()
+  var id = window.location.search.substring(1) //get id from param request
+  var [movie, setMovie] = useState(null)
 
-  const handleSendMessage = () => {
-    if (currentMessage.trim() !== '') {
-      const newMessages = [...messages, currentMessage]
-      setMessages(newMessages)
-      setCurrentMessage('')
-    }
-  }
+  useEffect(() => {
+    movieApi.getMovieById(id)
+      .then(response => {
+        setMovie(response)
+      })
+      .catch(error => {
+        console.error(error)
+      })
+  }, [id])
   return (
     <div>
       <AppBar />
@@ -52,18 +51,17 @@ function Movie() {
               style={{ justifyContent: 'center', alignContent: 'center', display: 'flex' }}
               height="70vh"
               controls={true}
-              url={'https://www.youtube.com/watch?v=qj7F47bwZfA'} />
+              url={movie?.link} />
 
             <Box >
               <Stack spacing={1} sx={{ m: 2, mr: 2 }}>
                 {/* Title */}
-                <Typography variant='h5' sx={{ fontFamily: 'sans-serif', fontWeight: 'bold' }}>Ironman 3</Typography>
+                <Typography variant='h5' sx={{ fontFamily: 'sans-serif', fontWeight: 'bold' }}>{movie?.title}</Typography>
                 {/* Rating */}
                 <Rating name="size-medium" defaultValue={5} />
                 {/* Description */}
-                <Typography variant='h7' sx={{ fontFamily: 'sans-serif' }}>When Tony Stark's world is torn apart by a formidable terrorist called the Mandarin, he starts an odyssey of rebuilding and retribution. </Typography>
+                <Typography variant='h7' sx={{ fontFamily: 'sans-serif' }}> {movie?.description}</Typography>
                 {/* Comment */}
-                
                   {/* <Stack direction={'row'} >
                     <TextField
                       label='Nhập tin nhắn'

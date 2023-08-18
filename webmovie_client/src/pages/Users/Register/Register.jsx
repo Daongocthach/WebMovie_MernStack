@@ -9,9 +9,44 @@ import loginImage from '../../../assets/img/loginImage.jpg'
 import { Typography } from '@mui/material'
 import { Link } from 'react-router-dom'
 import { useColorScheme } from '@mui/material/styles'
+import { useNavigate } from 'react-router-dom'
+import axios from 'axios'
+
+const validateEmail = (email) => {
+  const emailPattern = /^[a-zA-Z0-9._%+-]+@gmail\.com$/
+  return emailPattern.test(email)
+}
 
 function Register() {
-  const { _ ,setMode } = useColorScheme()
+  // eslint-disable-next-line no-unused-vars
+  const { _, setMode } = useColorScheme()
+  const navigate = useNavigate()
+  var [email, setEmail] = React.useState('')
+  var [password, setPassword] = React.useState('')
+  var [repeatPassword, setRepeatPassword] = React.useState('')
+  var [username, setUsername] = React.useState('')
+  var [phone, setPhone] = React.useState('')
+
+  const onFinish = () => {
+    const url = 'http://localhost:3100/api/auth/register'
+    axios.post(url, {
+      username: username,
+      email: email,
+      password: password,
+      role: 'client',
+      phone: phone
+    })
+      .then(function (response) {
+        console.log(response.data)
+        navigate('/login')
+        alert('Sign Up Successful! Login to Continue.')
+      })
+      .catch(error => {
+        console.log(error)
+        alert('Check infomation and input again')
+      })
+  }
+
   setMode('dark')
   return (
     <Container disableGutters maxWidth={false} sx={{ height: '100vh' }}>
@@ -54,23 +89,41 @@ function Register() {
           >
             <TextField
               id="input-email"
-              defaultValue="Input Email"
               variant="filled"
               size="small"
+              placeholder='Input email'
+              onChange={e => setEmail(e.target.value)}
+            />
+            <TextField
+              id="input-username"
+              variant="filled"
+              size="small"
+              placeholder='Input username'
+              onChange={e => setUsername(e.target.value)}
             />
             <TextField
               id="input-password"
-              defaultValue="Input Password"
+              placeholder='Input password'
               variant="filled"
               size="small"
+              onChange={e => setPassword(e.target.value)}
+            />
+            <TextField
+              id="input-repeatpassword"
+              placeholder="Input repeat password"
+              variant="filled"
+              size="small"
+              onChange={e => setRepeatPassword(e.target.value)}
             />
             <TextField
               id="input-phone"
-              defaultValue="Input Phone"
               variant="filled"
               size="small"
+              placeholder='Input Phone'
+              onChange={e => setPhone(e.target.value)}
             />
-            <Button sx={{ bgcolor: 'red', borderRadius: '5px', color: 'white', fontWeight: 'bold' }}>Sign Up</Button>
+            <Button sx={{ bgcolor: 'red', borderRadius: '5px', color: 'white', fontWeight: 'bold' }}
+              onClick={() => onFinish({ email, username, password, phone })}>Sign Up</Button>
             <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
               <Link to={'/login'} style={{ textDecoration: 'none', color: 'inherit', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <Typography variant='span' sx={{

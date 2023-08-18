@@ -11,15 +11,11 @@ function ListRow() {
                 flexDirection: 'column',
                 maxWidth: '100vw',
                 overflowX: 'auto',
-                overflowY: 'hidden',
-                '&::-webkit-scrollbar-track ': {
-                    m: 2
-                }
+                overflowY: 'hidden'
             }}>
                 <Box sx={{ flexGrow: 1, paddingBottom: 9 }}>
-                    <Row />
-                    <Row />
-                    <Row />
+                    <Row title= 'Thịnh hành'/>
+                    <Row title= 'Mới nhất'/>
                 </Box>
             </Box>
         </Box>

@@ -1,10 +1,8 @@
-export const mapOrder = (originalArray, orderArray, key) => {
-    if (!originalArray || !orderArray || !key) return []
+export const mapOrder = (originalArray) => {
+    if (!originalArray) return []
 
     const clonedArray = [...originalArray]
-    const orderedArray = clonedArray.sort((a, b) => {
-        return orderArray.indexOf(a[key]) - orderArray.indexOf(b[key])
-    })
+    const orderedArray = clonedArray.sort()
 
     return orderedArray
 }

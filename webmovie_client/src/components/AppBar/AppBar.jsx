@@ -18,9 +18,10 @@ import HdOutlinedIcon from '@mui/icons-material/HdOutlined'
 import GradeOutlinedIcon from '@mui/icons-material/GradeOutlined'
 import SearchIcon from '@mui/icons-material/Search'
 import CloseIcon from '@mui/icons-material/Close'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 function AppBar() {
+  const navigate = useNavigate()
   const [searchValue, setSearchValue] = useState('')
   return (
     <Box sx={{
@@ -39,10 +40,12 @@ function AppBar() {
     }}>
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
         <AppsIcon sx={{ color: '' }} />
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+        <Link to={'/'} style={{ textDecoration: 'none', color: 'inherit'}}>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }} >
           <SvgIcon component={MovieIcon} inheritViewBox sx={{ size: 'small' }} />
           <Typography variant='span' sx={{ fontStyle: '1.2rem', fontWeight: 'bold' }}>WebMovie</Typography>
         </Box>
+        </Link>
         <Box sx={{ display: { xs: 'none', md: 'flex' }, gap: 2 }}>
           <Dashboard />
           <Category />
