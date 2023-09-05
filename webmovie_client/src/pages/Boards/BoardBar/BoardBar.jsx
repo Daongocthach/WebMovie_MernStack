@@ -1,8 +1,5 @@
-import Box from '@mui/material/Box'
-import Button from '@mui/material/Button'
-import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline'
-import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline'
-import theme from '../../../theme'
+import { Box, Button } from '@mui/material'
+import { PlayCircleOutlineIcon, ErrorOutlineIcon } from '@mui/icons-material'
 
 function BoardBar() {
   return (

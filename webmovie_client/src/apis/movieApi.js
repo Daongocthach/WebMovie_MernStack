@@ -4,7 +4,6 @@ const movieApi = {
         const url = 'http://localhost:3100/api/movie/search'
         return axios.get(url)
             .then(response => {
-                console.log(response)
                 return response
             })
             .catch(error => {

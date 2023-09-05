@@ -32,7 +32,6 @@ const authController = {
             const user = await UserModel.findOne({ email: req.body.email })
             if (!user) {
                 return res.status(400).json({ message: 'Unregisted account!', status: false })
-
             }
             const validatePassword = await bcrypt.compareSync(req.body.password, user.password)
             if (!validatePassword) {
@@ -40,7 +39,8 @@ const authController = {
             }
             if (user && validatePassword) {
                 var token = jwt.sign({ _id: user._id }, constant.JWT_ACCESS_KEY, { expiresIn: 10000000 })
-                return res.status(200).json({ message: 'dang nhap thanh cong', token: token})
+                res.header('Authorization', token)
+                res.status(200).json({ image: user.image, token: token})
             }
         } catch (error) {
             res.status(500).json('Login fail')

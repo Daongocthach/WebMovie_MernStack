@@ -4,6 +4,7 @@ import BoardBar from './BoardBar/BoardBar'
 import BoardContent from './BoardContent/BoardContent'
 import Footer from '../../components/Footer/Footer'
 
+
 function Board() {
   return (
     <Container disableGutters maxWidth={false} sx={{ height: '100vh' }}>

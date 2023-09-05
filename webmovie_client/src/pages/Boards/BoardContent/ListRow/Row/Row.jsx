@@ -33,7 +33,6 @@ function Row({ title }) {
                 width: 'fit-content'
             }}>
                 <ListCards />
-                
             </Box>
         </Box>
     )

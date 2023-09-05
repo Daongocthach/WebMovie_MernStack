@@ -1,4 +1,5 @@
-const MovieModel = require('../models/movie')
+const MovieModel = require('../models/movies')
+const CategoryModel = require('../models/categories')
 
 const movieController = {
     getAllMovie: async (req, res) => {
@@ -8,7 +9,7 @@ const movieController = {
         const options = {
             page: page,
             limit: limit,
-        };
+        }
         try {
             const movies = await MovieModel.paginate({}, options)
             if (!movies) return res.status(400).json('No data')
@@ -28,7 +29,7 @@ const movieController = {
             res.status(500).json(error)
         }
     },
-    
+
 
     addMovie: async (req, res) => {
         try {
@@ -72,7 +73,7 @@ const movieController = {
         } catch (error) {
             res.status(400).json(error)
         }
-    },
+    }
 
 }
 module.exports = movieController

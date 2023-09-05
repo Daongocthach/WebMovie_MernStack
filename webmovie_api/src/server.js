@@ -3,13 +3,15 @@ const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
 const cookieParser = require('cookie-parser')
 const app = express()
-const path = require('path')
+const cors = require('cors')
 const DB_MONGO = require('./config/db.config')
 const CONSTANT = require('./config/constant')
 const authRoute = require('./routes/auth')
 const userRoute = require('./routes/user')
 const movieRoute = require('./routes/movie')
-const cors = require('cors')
+const categoryRoute = require('./routes/category')
+const directorRoute = require('./routes/director')
+const countryRoute = require('./routes/country')
 
 app.use(cors())
 app.use(cookieParser())
@@ -31,6 +33,10 @@ mongoose.connect(DB_MONGO.URL, { useNewUrlParser: true, useUnifiedTopology: true
 app.use('/api/auth', authRoute)
 app.use('/api/user', userRoute)
 app.use('/api/movie', movieRoute)
+app.use('/api/category', categoryRoute)
+app.use('/api/director', directorRoute)
+app.use('/api/country', countryRoute)
+
 const PORT = process.env.PORT || CONSTANT.PORT;
 
 app.listen(PORT, () => {

@@ -1,21 +1,19 @@
-import React from 'react'
-import Button from '@mui/material/Button'
-import Menu from '@mui/material/Menu'
-import Box from '@mui/material/Box'
-import Divider from '@mui/material/Divider'
-import MenuItem from '@mui/material/MenuItem'
-import ListItemText from '@mui/material/ListItemText'
-import ListItemIcon from '@mui/material/ListItemIcon'
-import Typography from '@mui/material/Typography'
-import ContentCut from '@mui/icons-material/ContentCut'
-import ContentCopy from '@mui/icons-material/ContentCopy'
-import ContentPaste from '@mui/icons-material/ContentPaste'
-import Cloud from '@mui/icons-material/Cloud'
+import { useState, useEffect } from 'react'
+import { Button, Menu, Box, MenuItem, ListItemText } from '@mui/material'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
-import theme from '../../../theme'
-
+import countryApi from '../../../apis/countryApi'
 function Country() {
-    const [anchorEl, setAnchorEl] = React.useState(null)
+    const [anchorEl, setAnchorEl] = useState(null)
+    const [countries, setCountries] = useState([])
+    useEffect(() => {
+        countryApi.getListCountries()
+          .then(response => {
+            setCountries(response.data)
+          })
+          .catch(error => {
+            console.error(error)
+          })
+      }, [])
     const open = Boolean(anchorEl)
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget)
@@ -31,7 +29,7 @@ function Country() {
                 aria-haspopup="true"
                 aria-expanded={open ? 'true' : undefined}
                 onClick={handleClick}
-                endIcon={<ExpandMoreIcon/>}
+                endIcon={<ExpandMoreIcon />}
                 sx={{ color: (theme) => (theme.palette.mode === 'dark' ? 'white' : 'black') }}
             >
                 Country
@@ -45,40 +43,11 @@ function Country() {
                     'aria-labelledby': 'basic-button'
                 }}
             >
-                <MenuItem>
-                    <ListItemIcon>
-                        <ContentCut fontSize="small" />
-                    </ListItemIcon>
-                    <ListItemText>Cut</ListItemText>
-                    <Typography variant="body2" color="text.secondary">
-                        ⌘X
-                    </Typography>
-                </MenuItem>
-                <MenuItem>
-                    <ListItemIcon>
-                        <ContentCopy fontSize="small" />
-                    </ListItemIcon>
-                    <ListItemText>Copy</ListItemText>
-                    <Typography variant="body2" color="text.secondary">
-                        ⌘C
-                    </Typography>
-                </MenuItem>
-                <MenuItem>
-                    <ListItemIcon>
-                        <ContentPaste fontSize="small" />
-                    </ListItemIcon>
-                    <ListItemText>Paste</ListItemText>
-                    <Typography variant="body2" color="text.secondary">
-                        ⌘V
-                    </Typography>
-                </MenuItem>
-                <Divider />
-                <MenuItem>
-                    <ListItemIcon>
-                        <Cloud fontSize="small" />
-                    </ListItemIcon>
-                    <ListItemText>Web Clipboard</ListItemText>
-                </MenuItem>
+                {countries?.map((country, index) =>
+                    <MenuItem key={index}>
+                        <ListItemText>{country.name}</ListItemText>
+                    </MenuItem>
+                )}
             </Menu>
         </Box>
     )

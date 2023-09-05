@@ -1,12 +1,7 @@
 import { useColorScheme } from '@mui/material/styles'
-import InputLabel from '@mui/material/InputLabel'
-import MenuItem from '@mui/material/MenuItem'
-import FormControl from '@mui/material/FormControl'
-import Select from '@mui/material/Select'
-import LightModeIcon from '@mui/icons-material/LightMode'
-import DarkModeIcon from '@mui/icons-material/DarkMode'
-import Brightness4Icon from '@mui/icons-material/Brightness4'
-import Box from '@mui/material/Box'
+import { InputLabel, MenuItem, FormControl, Select, Box } from '@mui/material'
+import { LightMode, DarkMode, Brightness4 } from '@mui/s-material/LightMode'
+
 
 function ModeSelect() {
   const { mode, setMode } = useColorScheme()
@@ -37,22 +32,22 @@ function ModeSelect() {
           '.MuiOutlinedInput-notchedOutline': { borderColor: (theme) => (theme.palette.mode === 'dark' ? 'white' : 'black') },
           '&:hover .MuiOutlinedInput-notchedOutline': { borderColor: (theme) => (theme.palette.mode === 'dark' ? 'white' : 'black') },
           '&.Mui-focused .MuiOutlinedInput-notchedOutline': { borderColor: (theme) => (theme.palette.mode === 'dark' ? 'white' : 'black') },
-          '.MuiSvgIcon-root': { color:(theme) => (theme.palette.mode === 'dark' ? 'white' : 'black') }
+          '.MuiSvg-root': { color:(theme) => (theme.palette.mode === 'dark' ? 'white' : 'black') }
         }}
       >
         <MenuItem value="light">
           <Box sx={{ display:'flex', alignItems: 'center', gap: 1 }}>
-            <LightModeIcon/> Light
+            <LightMode/> Light
           </Box>
         </MenuItem>
         <MenuItem value="dark">
           <Box sx={{ display:'flex', alignItems: 'center', gap: 1 }}>
-            <DarkModeIcon/> Dark
+            <DarkMode/> Dark
           </Box>
         </MenuItem>
         <MenuItem value="system">
           <Box sx={{ display:'flex', alignItems: 'center', gap: 1 }}>
-            <Brightness4Icon/> System
+            <Brightness4/> System
           </Box>
         </MenuItem>
       </Select>

@@ -1,8 +1,11 @@
 import RouterUrl from './routers/routes'
+import { UserProvider } from './pages/Users/Context/UserContext'
 
 function App() {
   return (
-    <RouterUrl/>
+    <UserProvider>
+      <RouterUrl />
+    </UserProvider>
   )
 }
 

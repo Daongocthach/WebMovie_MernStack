@@ -15,7 +15,6 @@ function ListRow() {
             }}>
                 <Box sx={{ flexGrow: 1, paddingBottom: 9 }}>
                     <Row title= 'Thịnh hành'/>
-                    <Row title= 'Mới nhất'/>
                 </Box>
             </Box>
         </Box>

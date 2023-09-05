@@ -9,7 +9,7 @@ const userController = {
             const email = await UserModel.findOne({ email: req.body.email })
             const salt = await bcrypt.genSalt(10)
             const hashed = await bcrypt.hash(req.body.password, salt)
-
+            
             if (!email) {
                 const newUser = await new UserModel({
                     email: req.body.email,
@@ -30,12 +30,11 @@ const userController = {
         }
     },
     updateUser: async (req, res) => {
-        var id = req.params.id
-        const { username, email, password, role, phone, status } = req.body
-
+        
+        const { _id, username, phone, image } = req.body
         try {
-            const user = await UserModel.findByIdAndUpdate(id, { username, email, password, role, phone, status }, { new: true })
-            if (!user) { 
+            const user = await UserModel.findByIdAndUpdate(_id, { username, phone, image }, { new: true })
+            if (!user) {
                 res.status(404).json({ message: 'User not found' })
             }
             return res.status(200).json('Update success')
@@ -47,6 +46,21 @@ const userController = {
         try {
             const user = await UserModel.findByIdAndRemove(req.params.id)
             res.status(200).json('Delete success')
+        } catch (error) {
+            res.status(400).json(error)
+        }
+    },
+    getProfile: async (req, res) => {
+        try {
+            const verified = jwt.verify(req.body.token, constant.JWT_ACCESS_KEY)
+            if (verified) {
+                const user = await UserModel.findById(verified._id)
+                if (!user) {
+                    return res.status(404).json({ message: 'User not found' })
+                }
+                return res.status(200).json({ user })
+            }
+            else return 
         } catch (error) {
             res.status(400).json(error)
         }

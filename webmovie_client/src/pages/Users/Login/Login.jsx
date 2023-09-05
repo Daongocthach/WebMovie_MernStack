@@ -1,31 +1,25 @@
 import React from 'react'
-import Box from '@mui/material/Box'
-import Button from '@mui/material/Button'
-import Stack from '@mui/material/Stack'
-import TextField from '@mui/material/TextField'
-import { Container } from '@mui/material'
 import loginImage from '../../../assets/img/loginImage.jpg'
-import AppBar from '../../../components/AppBar/AppBar'
-import Checkbox from '@mui/material/Checkbox'
-import { Typography } from '@mui/material'
-import { Link } from 'react-router-dom'
+import { Typography, Checkbox, Container, TextField, Stack, Button, Box } from '@mui/material'
+import { Link, useNavigate } from 'react-router-dom'
 import { useColorScheme } from '@mui/material/styles'
-import { useNavigate } from 'react-router-dom'
 import userApi from '../../../apis/userApi'
+import { useUser } from '../Context/UserContext'
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } }
 
 function Login() {
   const navigate = useNavigate()
-  const { _, setMode } = useColorScheme()
+  const { setUser } = useUser()
+  const { setMode } = useColorScheme()
   var [email, setEmail] = React.useState('')
   var [password, setPassword] = React.useState('')
 
   const onFinish = () => {
     userApi.login(email, password)
       .then(function (response) {
+        setUser(response.data.user)
         alert('Login Successful')
         navigate('/')
-        console.log(response)
       })
       .catch(function (error) {
         console.log(error)
@@ -43,12 +37,6 @@ function Login() {
         zIndex: 1,
         bgcolor: 'black'
       }}>
-        <AppBar />
-        <Box sx={{
-          width: '100%',
-          height: (theme) => theme.webCustom.appBarHeight,
-          bgcolor: 'white'
-        }}></Box>
         <img src={loginImage} style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.5 }} />
         <Box sx={{
           position: 'absolute',
@@ -73,7 +61,7 @@ function Login() {
               placeholder='Input email'
               variant="filled"
               size="small"
-              onChange={e => setEmail(e.target.value)} // Lưu giá trị email vào biến state
+              onChange={e => setEmail(e.target.value)}
             />
             <TextField
               id="filled-hidden-label-normal"
@@ -82,11 +70,11 @@ function Login() {
               size="small"
               color='white'
               type="password"
-              onChange={e => setPassword(e.target.value)} // Lưu giá trị password vào biến state
+              onChange={e => setPassword(e.target.value)}
             />
             <Button
               sx={{ bgcolor: 'red', borderRadius: '5px', color: 'white', fontWeight: 'bold' }}
-              onClick={() => onFinish({ email, password })} // Gọi onFinish với giá trị email và password đã lưu
+              onClick={() => onFinish({ email, password })}
             >
               Sign In
             </Button>
