@@ -2,9 +2,8 @@ const mongoose = require('mongoose')
 const mongoosePaginate = require('mongoose-paginate-v2')
 
 const reviewSchema = new mongoose.Schema({
-    comment: { type: String, required: true },
-    movieId: { type: Schema.Types.ObjectId, ref: 'movies', required: true },
-    user: { type: Schema.Types.ObjectId, ref: 'users', required: true },
+    comment: { type: String },
+    user: { type: Schema.Types.ObjectId, ref: 'users' },
 },
     { timestamps: true },
     { collection: 'reviews' })

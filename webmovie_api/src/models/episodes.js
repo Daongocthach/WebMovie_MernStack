@@ -1,11 +1,12 @@
 const mongoose = require('mongoose')
 
 const episodeSchema = new mongoose.Schema({
-    title: { type: String, default: '' },
+    name: { type: String, default: '' },
     description: { type: String, default: '' },
     duration: { type: Number, default: 0 },
-    videoLink: { type: String, default: '' },
-    
+    link: { type: String, default: '' },
+    review: { type: mongoose.Schema.Types.ObjectId, ref: 'reviews'},
+    rating: { type: mongoose.Schema.Types.ObjectId, ref: 'ratings'}
 },
     { timestamps: true },
     { collection: 'episodes' })
