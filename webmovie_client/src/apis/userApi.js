@@ -13,6 +13,7 @@ const userApi = {
                 if (response) {
                     setCookie('token', response.data.token, 1)
                     setCookie('avatar', response.data.image, 1)
+                    setCookie('name', response.data.name, 1)
                 }
                 return response
             })

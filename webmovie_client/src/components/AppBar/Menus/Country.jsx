@@ -2,7 +2,9 @@ import { useState, useEffect } from 'react'
 import { Button, Menu, Box, MenuItem, ListItemText } from '@mui/material'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import countryApi from '../../../apis/countryApi'
-function Country() {
+import movieApi from '../../../apis/movieApi'
+
+function Country({ setData }) {
     const [anchorEl, setAnchorEl] = useState(null)
     const [countries, setCountries] = useState([])
     useEffect(() => {
@@ -20,6 +22,20 @@ function Country() {
     }
     const handleClose = () => {
         setAnchorEl(null)
+    }
+    function handleCountry(country) {
+        var title = country.name
+        movieApi.getListMovieByCountryId(country._id)
+        .then(response => {
+            const dataToStore = {
+                title,
+                movies: response.data
+            }
+            setData(dataToStore)
+        })
+        .catch(error => {
+            console.error(error)
+        })
     }
     return (
         <Box>
@@ -43,9 +59,9 @@ function Country() {
                     'aria-labelledby': 'basic-button'
                 }}
             >
-                {countries?.map((country, index) =>
-                    <MenuItem key={index}>
-                        <ListItemText>{country.name}</ListItemText>
+                {countries?.map((country) =>
+                    <MenuItem key={country._id}>
+                        <ListItemText onClick={() => {handleCountry(country)}}>{country.name}</ListItemText>
                     </MenuItem>
                 )}
             </Menu>

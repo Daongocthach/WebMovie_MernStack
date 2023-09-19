@@ -1,7 +1,7 @@
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const constant = require('../config/constant')
-const UserModel = require('../models/user')
+const UserModel = require('../models/users')
 
 const authController = {
     registerUser: async (req, res) => {
@@ -40,7 +40,10 @@ const authController = {
             if (user && validatePassword) {
                 var token = jwt.sign({ _id: user._id }, constant.JWT_ACCESS_KEY, { expiresIn: 10000000 })
                 res.header('Authorization', token)
-                res.status(200).json({ image: user.image, token: token})
+                if(user.role === 'admin'){
+                    return res.status(200).json({ token: token, image: user.image, role:'admin' })
+                }
+                res.status(200).json({ image: user.image, token: token, name:user.username, role:'client' })
             }
         } catch (error) {
             res.status(500).json('Login fail')

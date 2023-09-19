@@ -7,7 +7,6 @@ const theme = extendTheme({
   webCustom: {
     appBarHeight: APP_BAR_HEIGHT,
     boardContentHeight: BOARD_CONTENT
-
   },
   colors: {
     primary: teal,
@@ -23,7 +22,7 @@ const theme = extendTheme({
         root: {
           textTransform: 'none',
           borderWidth: '0.5px',
-          fontFamily:'sans-serif',
+          fontFamily: 'sans-serif',
           '&:hover': { borderWidth: '0.5px', opacity: 0.7, backgroundColor: '#777777' }
         }
       }
@@ -49,17 +48,16 @@ const theme = extendTheme({
         body: {
           '*::-webkit-scrollbar': {
             width: '8px',
-            height: '8px',
+            height: '8px'
           },
           '*::-webkit-scrollbar-thumb': {
             backgroundColor: '#dcdde1',
             borderRadius: '8px',
-            display: 'none', // Ẩn thanh cuộn theo chiều ngang
+            display: 'none'
           },
           '*::-webkit-scrollbar-thumb:hover': {
-            backgroundColor: 'white',
+            backgroundColor: 'white'
           },
-          // Ẩn thanh cuộn theo chiều ngang
           overflowX: 'hidden'
         }
       }

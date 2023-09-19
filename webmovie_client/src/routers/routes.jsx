@@ -5,6 +5,7 @@ import Login from '../pages/Users/Login/Login'
 import Register from '../pages/Users/Register/Register'
 import Profile from '../pages/Users/Profile/Profile'
 import Movie from '../pages/Movie/Movie'
+import Episode from '../pages/Movie/Episode/Episode'
 
 function routes() {
     return (
@@ -16,6 +17,7 @@ function routes() {
                 <Route path="/register" element={<Register />} />
                 <Route path="/profile" element={<Profile />} />
                 <Route path="/movie" element={<Movie />} />
+                <Route path="/episode" element={<Episode />} />
                 <Route path="*" element={<NotFound/>} />
             </Routes>
         </Router>

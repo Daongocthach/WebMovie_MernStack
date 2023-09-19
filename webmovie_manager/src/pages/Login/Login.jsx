@@ -1,29 +1,34 @@
-import React from 'react'
+import { useState } from 'react'
 import loginImage from '../../assets/img/loginImage.jpg'
-import { Typography, Checkbox, Container, TextField, Stack, Button, Box } from '@mui/material'
-import { Link } from 'react-router-dom'
-import { useColorScheme } from '@mui/material/styles'
-//import userApi from '../../../apis/userApi'
-const label = { inputProps: { 'aria-label': 'Checkbox demo' } }
+import { Container, TextField, Stack, Button, Box } from '@mui/material'
+import { Link, useNavigate } from 'react-router-dom'
+import userApi from '../../apis/userApi'
+import { getCookie, setCookie } from '../../utils/cookie'
 
 function Login() {
-  const { setMode } = useColorScheme()
-  var [email, setEmail] = React.useState('')
-  var [password, setPassword] = React.useState('')
+  const navigate = useNavigate()
+  var [email, setEmail] = useState('')
+  var [password, setPassword] = useState('')
+  const token = getCookie('token')
+  if (token) navigate('/dashboard')
 
   const onFinish = () => {
-    // userApi.login(email, password)
-    //   .then(function (response) {
-    //     setUser(response.data.user)
-    //     alert('Login Successful')
-    //     navigate('/')
-    //   })
-    //   .catch(function (error) {
-    //     console.log(error)
-    //     alert('Wrong Email or Password')
-    //   })
+    userApi.login(email, password)
+      .then(function (response) {
+        if (response.data.role === 'admin') {
+          alert('Login Successful')
+          setCookie('token', response.data.token, 1)
+          setCookie('avatar', response.data.image, 1)
+          setCookie('name', response.data.name, 1)
+          navigate('/dashboard')
+        }
+        else alert('Do not have access!')
+      })
+      .catch(function (error) {
+        console.log(error)
+        alert('Wrong Email or Password')
+      })
   }
-  setMode('dark')
   return (
     <Container disableGutters maxWidth={false} sx={{ height: '100vh', width: '100vw' }}>
       <Box sx={{
@@ -31,7 +36,6 @@ function Login() {
         height: '100%',
         overflow: 'hidden',
         position: 'relative',
-        zIndex: 1,
         bgcolor: 'black'
       }}>
         <img src={loginImage} style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.5 }} />
@@ -44,8 +48,7 @@ function Login() {
           left: '50%',
           bgcolor: 'black',
           opacity: 0.8,
-          transform: 'translate(-50%, -30%)',
-          zIndex: 2
+          transform: 'translate(-50%, -30%)'
         }}>
           <h2 style={{ textAlign: 'center', color: 'white' }}> Sign In Admin Account</h2>
           <Stack
@@ -58,6 +61,7 @@ function Login() {
               placeholder='Input email'
               variant="filled"
               size="small"
+              sx={{ bgcolor: 'white', borderRadius: 3 }}
               onChange={e => setEmail(e.target.value)}
             />
             <TextField
@@ -65,40 +69,20 @@ function Login() {
               placeholder='Input password'
               variant="filled"
               size="small"
-              color='white'
+              sx={{ bgcolor: 'white', borderRadius: 3 }}
               type="password"
               onChange={e => setPassword(e.target.value)}
             />
             <Button
-              sx={{ bgcolor: 'red', borderRadius: '5px', color: 'white', fontWeight: 'bold' }}
+              sx={{ bgcolor: 'red', color: 'white', fontWeight: 'bold' }}
               onClick={() => onFinish({ email, password })}
-            >
-              Sign In
-            </Button>
+            >Sign In</Button>
 
             <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
               <Box sx={{ display: 'flex', alignItems: 'center', m: 0 }}>
-                <Checkbox {...label} />
-                <Typography variant='span' >Remember me?</Typography>
+                <Link to={'/'} style={{ color: 'white' }}>Forgot Password?</Link>
               </Box>
-              <Typography variant='span' sx={{
-                '&:hover': {
-                  color: 'lightblue',
-                  textDecoration: 'underline'
-                }
-              }}>Need help?
-              </Typography>
-            </Box>
-            <Box sx={{ mt: 5 }}>
-              <Link to={'/register'} style={{ textDecoration: 'none', color: 'inherit', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <Typography variant='span' sx={{
-                  '&:hover': {
-                    color: 'lightblue',
-                    textDecoration: 'underline'
-                  }
-                }}>Sign up Now?
-                </Typography>
-              </Link>
+              <Link to={'/'} style={{ color: 'white' }}>Need help?</Link>
             </Box>
           </Stack>
         </Box>

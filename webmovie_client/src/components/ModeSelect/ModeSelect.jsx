@@ -1,6 +1,6 @@
 import { useColorScheme } from '@mui/material/styles'
 import { InputLabel, MenuItem, FormControl, Select, Box } from '@mui/material'
-import { LightMode, DarkMode, Brightness4 } from '@mui/s-material/LightMode'
+import { LightMode, DarkMode, Brightness4 } from '@mui/icons-material'
 
 
 function ModeSelect() {

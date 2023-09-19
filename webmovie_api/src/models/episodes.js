@@ -5,8 +5,8 @@ const episodeSchema = new mongoose.Schema({
     description: { type: String, default: '' },
     duration: { type: Number, default: 0 },
     link: { type: String, default: '' },
-    review: { type: mongoose.Schema.Types.ObjectId, ref: 'reviews'},
-    rating: { type: mongoose.Schema.Types.ObjectId, ref: 'ratings'}
+    review: [{ type: mongoose.Schema.Types.ObjectId, ref: 'reviews'}],
+    rating: [{ type: mongoose.Schema.Types.ObjectId, ref: 'ratings'}]
 },
     { timestamps: true },
     { collection: 'episodes' })

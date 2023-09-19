@@ -7,9 +7,10 @@ export default function Footer() {
     return (
         <Box sx={{
             bgcolor: (theme) => (theme.palette.mode === 'dark' ? '#1C1C1C' : '#2f3640'),
-            width: '100vw',
-            height: '200px',
+            width: '100%',
+            height: 'fit-content',
             mt: 2,
+            p:1,
             alignItems: 'center',
             justifyContent: 'center',
             display: 'flex'

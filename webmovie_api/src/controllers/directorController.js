@@ -1,7 +1,9 @@
 const DirectorModel = require('../models/direstors')
+const MovieModel = require('../models/movies')
+const ObjectId = require('mongodb').ObjectId
 
 const directorController = {
-    getAllDirector: async (req, res) => {
+    getListDirector: async (req, res) => {
         try {
             const directors = await DirectorModel.find()
             if (!directors) return res.status(400).json('No data')
@@ -10,6 +12,30 @@ const directorController = {
             }
         } catch (error) {
             res.status(500).json(error)
+        }
+    },
+    getDirectorById: async (req, res) => {
+        try {
+            const director = await DirectorModel.findById(req.params.id)
+            res.status(200).json(director)
+        } catch (error) {
+            res.status(500).json(error)
+        }
+    },
+    getDirectorByMovieId: async (req, res) => {
+        try {
+            const movieId = req.params.id
+            const movie = await MovieModel.findById(movieId)
+            if (!movie) {
+                return res.status(404).json({ message: 'Movie not found' })
+            }
+
+            const directorIds = movie.director.map(_id => new ObjectId(_id))
+            const directors = await DirectorModel.find({ "_id": { $in: directorIds } })
+            res.status(200).json(directors)
+        } catch (error) {
+            console.error(error)
+            res.status(500).json({ message: 'Internal server error' })
         }
     },
     addDirector: async (req, res) => {

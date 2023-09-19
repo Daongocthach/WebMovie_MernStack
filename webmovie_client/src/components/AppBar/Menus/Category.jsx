@@ -1,26 +1,45 @@
-
+import { useState, useEffect } from 'react'
 import { ListItemText, Button, Box, Menu, MenuItem } from '@mui/material'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
+import { useNavigate } from 'react-router-dom'
 import categoryApi from '../../../apis/categoryApi'
-import { useState, useEffect } from 'react'
-function Category() {
+import movieApi from '../../../apis/movieApi'
+
+function Category({ setData }) {
+    const navigate = useNavigate()
     const [anchorEl, setAnchorEl] = useState(null)
     const [categories, setCategories] = useState([])
     useEffect(() => {
         categoryApi.getListCategories()
-          .then(response => {
-            setCategories(response.data)
-          })
-          .catch(error => {
-            console.error(error)
-          })
-      }, [])
+            .then(response => {
+                setCategories(response.data)
+            })
+            .catch(error => {
+                console.error(error)
+            })
+    }, [])
     const open = Boolean(anchorEl)
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget)
     }
     const handleClose = () => {
         setAnchorEl(null)
+    }
+    function handleCategory(category) {
+        var title = category.name
+        movieApi.getListMovieByCategoryId(category._id)
+        .then(response => {
+            const dataToStore = {
+                title,
+                movies: response.data
+            }
+            navigate('/')
+            setData(dataToStore)
+
+        })
+        .catch(error => {
+            console.error(error)
+        })
     }
     return (
         <Box>
@@ -30,7 +49,7 @@ function Category() {
                 aria-haspopup="true"
                 aria-expanded={open ? 'true' : undefined}
                 onClick={handleClick}
-                endIcon={<ExpandMoreIcon/>}
+                endIcon={<ExpandMoreIcon />}
                 sx={{ color: (theme) => (theme.palette.mode === 'dark' ? 'white' : 'black') }}
             >
                 Category
@@ -44,9 +63,9 @@ function Category() {
                     'aria-labelledby': 'basic-button'
                 }}
             >
-                {categories?.map((category, index) =>
-                    <MenuItem key={index}>
-                        <ListItemText>{category.name}</ListItemText>
+                {categories?.map((category) =>
+                    <MenuItem key={category._id}>
+                        <ListItemText onClick={() => {handleCategory(category)}}>{category.name}</ListItemText>
                     </MenuItem>
                 )}
             </Menu>

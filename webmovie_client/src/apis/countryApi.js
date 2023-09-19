@@ -9,6 +9,16 @@ const countryApi = {
             .catch(error => {
                 return error
             })
+    },
+    getCategoriesByMovieId(id) {
+        const url = `http://localhost:3100/api/category/search/movieId/${id}`
+        return axios.get(url)
+            .then(response => {
+                return response
+            })
+            .catch(error => {
+                return error
+            })
     }
 
 

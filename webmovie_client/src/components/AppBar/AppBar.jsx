@@ -1,16 +1,18 @@
 import { ReactComponent as MovieIcon } from '../../assets/movie.svg'
 import ModeSelect from '../ModeSelect/ModeSelect'
-import { InputAdornment, SvgIcon, Typography, Box, Button, TextField, Badge, Tooltip } from '@mui/material'
+import { InputAdornment, SvgIcon, Box, Button, TextField, Badge, Tooltip } from '@mui/material'
 import Director from './Menus/Director'
 import Country from './Menus/Country'
 import Category from './Menus/Category'
 import Account from './Menus/Account'
 import { Close, Search, NotificationsNone, HelpOutline, HdOutlined, GradeOutlined, Apps } from '@mui/icons-material'
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
-function AppBar() {
+function AppBar({ setData }) {
+  const navigate = useNavigate()
   const [searchValue, setSearchValue] = useState('')
+
   return (
     <Box sx={{
       position: 'fixed',
@@ -24,24 +26,21 @@ function AppBar() {
       border: 'none',
       paddingX: 2,
       overflow: 'auto',
-      bgcolor: (theme) => (theme.palette.mode === 'dark' ? '#2c3e50' : 'white')
+      bgcolor: (theme) => (theme.palette.mode === 'dark' ? '#1C1C1C' : '#FFFAFA')
     }}>
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
         <Apps />
-        <Link to={'/'} style={{ textDecoration: 'none', color: 'inherit' }}>
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }} >
           <SvgIcon component={MovieIcon} inheritViewBox sx={{ size: 'small' }} />
-          <Typography variant='span' sx={{ fontStyle: '1.2rem', fontWeight: 'bold' }}>WebMovie</Typography>
+          <Button onClick={() => {navigate('/')}} variant='span' sx={{ fontStyle: '1.2rem', fontWeight: 'bold' }}>WebMovie</Button>
         </Box>
-        </Link>
         <Box sx={{ display: { xs: 'none', md: 'flex' }, gap: 2 }}>
-          <Director />
-          <Category />
-          <Country />
-          <Button variant="outlined" start ={<HdOutlined />} sx={{ color: (theme) => (theme.palette.mode === 'dark' ? 'white' : 'black'), border: 'none', minWidth: '170px' }}>Movies Series</Button>
-          <Button variant="outlined" start ={<GradeOutlined />} sx={{ color: (theme) => (theme.palette.mode === 'dark' ? 'white' : 'black'), border: 'none' }}>TopIMDB</Button>
+          <Director setData={setData} />
+          <Category setData={setData} />
+          <Country setData={setData} />
+          <Button variant="outlined" start={<HdOutlined />} sx={{ color: (theme) => (theme.palette.mode === 'dark' ? 'white' : 'black'), border: 'none', minWidth: '170px' }}>Movies Series</Button>
+          <Button variant="outlined" start={<GradeOutlined />} sx={{ color: (theme) => (theme.palette.mode === 'dark' ? 'white' : 'black'), border: 'none' }}>TopIMDB</Button>
         </Box>
-
       </Box>
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
         <TextField

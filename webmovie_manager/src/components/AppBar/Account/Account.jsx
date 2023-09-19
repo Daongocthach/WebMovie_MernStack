@@ -50,14 +50,14 @@ function Account() {
             >
                 {token && <MenuItem onClick={handleClose}>
                     <Link to={'/profile'} style={{ textDecoration: 'none', color: 'inherit', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                        <Avatar sx={{ mr: 3 }} />
+                        <Avatar sx={{ mr: 3 }} >{token && avatar && <img src={avatar} style={{ objectFit: 'cover', width: '100%', height: '100%' }} />}</Avatar>
                         Profile
                     </Link>
 
                 </MenuItem>}
                 <Divider />
                 {!token && <MenuItem onClick={handleClose}>
-                    <Link to={'/login'} style={{ textDecoration: 'none', color: 'inherit', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <Link to={'/'} style={{ textDecoration: 'none', color: 'inherit', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                         <ListItemIcon>
                             <PersonAdd fontSize="small" />
                         </ListItemIcon>

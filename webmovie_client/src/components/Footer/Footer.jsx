@@ -1,97 +1,60 @@
-import { Box, Chip } from '@mui/material'
-import Grid from '@mui/joy/Grid'
-import AppsIcon from '@mui/icons-material/Apps'
-import HomeIcon from '@mui/icons-material/Home'
-import AddToDriveIcon from '@mui/icons-material/AddToDrive'
-import BoltIcon from '@mui/icons-material/Bolt'
-import Button from '@mui/material/Button'
-import HdOutlinedIcon from '@mui/icons-material/HdOutlined'
+import { Box, Grid } from '@mui/material'
+import YouTubeIcon from '@mui/icons-material/YouTube'
+import FacebookIcon from '@mui/icons-material/Facebook'
+import TwitterIcon from '@mui/icons-material/Twitter'
 
-const MENU_STYLES = {
-    color: 'white',
-    bgcolor: 'transparent',
-    border: 'none',
-    paddingX: '5px',
-    borderRadius: '4px',
-    '& .MuiSvgIcon-root': {
-        color: 'white'
-    },
-    '&:hover': {
-        bgcolor: 'primary.50'
-    }
-}
 export default function Footer() {
     return (
         <Box sx={{
-            width: '100%',
-            mt: 2,
-            height: '120px',
             bgcolor: (theme) => (theme.palette.mode === 'dark' ? '#1C1C1C' : '#2f3640'),
-            overflow: 'hidden'
+            width: '100%',
+            height: 'fit-content',
+            mt: 2,
+            alignItems: 'center',
+            justifyContent: 'center',
+            display: 'flex'
         }}>
-            <Box sx={{ width: '100%', height: '20%', justifyContent: 'center', alignItems: 'center', display: 'flex', gap: 2, marginTop: '10px' }}>
-                <Chip
-                    icon={<HomeIcon />}
-                    label={'Home'}
-                    clickable
-                    sx={MENU_STYLES}
-                >
-                </Chip>
-                <Chip
-                    icon={<AddToDriveIcon />}
-                    label='AddToDrive'
-                    clickable
-                    sx={MENU_STYLES}
-                >
-                </Chip>
-                <Chip
-                    icon={<BoltIcon />}
-                    label='Flash'
-                    clickable
-                    sx={MENU_STYLES}
-                >
-                </Chip>
-                <Chip
-                    icon={<AppsIcon />}
-                    label='Flash'
-                    clickable
-                    sx={MENU_STYLES}
-                >
-                </Chip>
-            </Box>
-            <Box sx={{
-                width: '100%',
-                height: '80%',
-                display: 'flex',
-                overflow: 'hidden',
-                alignItems: 'center',
-                justifyContent: 'space-around'
-            }}>
-                <Grid
-                    container
-                    spacing={{ xs: 1, sm: 1, md: 1 }}
-                    columns={{ xs: 4, sm: 8, md: 12 }}
-                    sx={{ color: 'white', justifyContent: 'center', fontFamily: 'sans-serif', fontSize: '15px' }}
-                >
-                   <Grid xs={6} sm={3} md={3}>
-                        Trung tâm trợ giúp
+            <Box sx={{ width: '100%', ml: 20 }}>
+                <Grid container spacing={{ xs: 1, md: 1 }} columns={{ xs: 4, sm: 8, md: 12 }} sx={{ color: 'white', fontFamily: 'monospace', fontSize: '15px' }}>
+                    <Grid item xs={4} sm={8} md={12} sx={{ fontSize: '30px', color: 'red', fontFamily: 'fantasy' }}>
+                        WebMovie
                     </Grid>
-                    <Grid xs={6} sm={3} md={3}>
-                        Điều khoản sử dụng
+                    <Grid item xs={2} sm={4} md={3} >
+                        Liên hệ: 0123456789
                     </Grid>
-                    <Grid xs={6} sm={3} md={3}>
-                        Thông tin doanh nghiệp
+                    <Grid item xs={2} sm={4} md={3} >
+                        Báo lỗi dịch vụ
                     </Grid>
-                    <Grid xs={6} sm={3} md={3}>
-                        Liên hệ với chúng tôi
+                    <Grid item xs={2} sm={4} md={3} >
+                        Phim hay
                     </Grid>
-                    <Grid xs={6} sm={3} md={3}>
-                        Quyền riêng tư
+                    <Grid item xs={2} sm={4} md={3} >
+                        Phim mới
                     </Grid>
-                    <Grid xs={6} sm={3} md={3}>
-                        Tùy chọn Cookie
+                    <Grid item xs={2} sm={4} md={3} >
+                        Email: pemeoh1@gmail.com
                     </Grid>
-                    <Button variant="outlined" startIcon={<HdOutlinedIcon />} sx={{ color: 'white', borderColor: 'white' }}>Movies</Button>
+                    <Grid item xs={2} sm={4} md={3} >
+                        Giới thiệu
+                    </Grid>
+                    <Grid item xs={2} sm={4} md={3} >
+                        Đăng ký
+                    </Grid>
+                    <Grid item xs={2} sm={4} md={3} >
+                        Trang chủ
+                    </Grid>
+                    <Grid item xs={2} sm={4} md={3} >
+                        Địa chỉ: 01 Võ văn ngân, Thủ Đức, <br/> Thành Phố Hồ Chí Minh
+                    </Grid>
+                    <Grid item xs={2} sm={4} md={3} >
+                        Chính sách bảo mật
+                    </Grid>
+                    <Grid item xs={2} sm={4} md={3} >
+                        Đăng nhập
+                    </Grid>
+                    <Grid item xs={2} sm={4} md={3} >
+                        <YouTubeIcon /><FacebookIcon /><TwitterIcon />
+                    </Grid>
                 </Grid>
             </Box>
         </Box>

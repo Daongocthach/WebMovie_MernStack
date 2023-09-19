@@ -2,7 +2,6 @@ import React from 'react'
 import loginImage from '../../../assets/img/loginImage.jpg'
 import { Typography, Checkbox, Container, TextField, Stack, Button, Box } from '@mui/material'
 import { Link, useNavigate } from 'react-router-dom'
-import { useColorScheme } from '@mui/material/styles'
 import userApi from '../../../apis/userApi'
 import { useUser } from '../Context/UserContext'
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } }
@@ -10,7 +9,6 @@ const label = { inputProps: { 'aria-label': 'Checkbox demo' } }
 function Login() {
   const navigate = useNavigate()
   const { setUser } = useUser()
-  const { setMode } = useColorScheme()
   var [email, setEmail] = React.useState('')
   var [password, setPassword] = React.useState('')
 
@@ -26,7 +24,6 @@ function Login() {
         alert('Wrong Email or Password')
       })
   }
-  setMode('dark')
   return (
     <Container disableGutters maxWidth={false} sx={{ height: '100vh' }}>
       <Box sx={{

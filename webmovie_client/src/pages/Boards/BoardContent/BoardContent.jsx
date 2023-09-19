@@ -1,6 +1,6 @@
 import Box from '@mui/material/Box'
 import ListRow from './ListRow/ListRow'
-function BoardContent() {
+function BoardContent({ data }) {
   return (
       <Box sx={{
         bgcolor: (theme) => (theme.palette.mode === 'dark' ? '#33495e' : '#ECECEC'),
@@ -12,7 +12,7 @@ function BoardContent() {
         overflowX: 'hidden'
       }}>
         <Box sx={{ flexGrow: 1 }}>
-          <ListRow />
+          <ListRow data={data} />
         </Box>
       </Box>
   )

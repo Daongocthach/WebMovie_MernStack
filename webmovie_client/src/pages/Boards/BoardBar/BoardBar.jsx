@@ -1,5 +1,5 @@
 import { Box, Button } from '@mui/material'
-import { PlayCircleOutlineIcon, ErrorOutlineIcon } from '@mui/icons-material'
+import { PlayCircleOutline, ErrorOutline } from '@mui/icons-material'
 
 function BoardBar() {
   return (
@@ -44,15 +44,15 @@ function BoardBar() {
         gap: 2
       }}>
         <Button variant="contained"
-          startIcon={<PlayCircleOutlineIcon sx={{ color: 'black' }} />}
-          sx={{ bgcolor: 'white', color: 'black', fontWeight: 'bold', width: '120px' }}>Phát
+          startIcon={<PlayCircleOutline sx={{ color: 'black' }} />}
+          sx={{ bgcolor: 'white', color: 'black', fontWeight: 'bold', width: '120px' }}>Play
         </Button>
-        <Button variant="contained" startIcon={<ErrorOutlineIcon />} sx={{
+        <Button variant="contained" startIcon={<ErrorOutline />} sx={{
           color: 'white',
           border: 'none',
           backgroundColor: '#777777',
           fontWeight: 'bold'
-        }}>Thông tin khác</Button>
+        }}>More Information</Button>
       </Box>
     </Box>
   )

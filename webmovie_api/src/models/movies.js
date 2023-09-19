@@ -7,9 +7,11 @@ const movieSchema = new mongoose.Schema({
     description: { type: String, default: '' },
     series: { type: Number, default: 0 },
     director: { type: mongoose.Schema.Types.ObjectId, ref: 'directors', required: true },
-    category: { type: mongoose.Schema.Types.ObjectId, ref: 'categories', required: true },
     country: { type: mongoose.Schema.Types.ObjectId, ref: 'countries', required: true },
-    episodes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'episodes', required: true }]
+    category: [{ type: mongoose.Schema.Types.ObjectId, ref: 'categories', required: true }],
+    episode: [{ type: mongoose.Schema.Types.ObjectId, ref: 'episodes', required: true }],
+    rating: [{ type: mongoose.Schema.Types.ObjectId, ref: 'ratings', required: true }],
+    review: [{ type: mongoose.Schema.Types.ObjectId, ref: 'reviews', required: true }]
 },
     { timestamps: true },
     { collection: 'movies' })

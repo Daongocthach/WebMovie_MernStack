@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken')
 const constant = require('../config/constant')
 module.exports = {
     checkLogin: (req, res, next) => {
-        const token = req.cookies.token
+        const token = req.body.token
         if (!token) return res.status(401).json('Access Denied')
         
         try {

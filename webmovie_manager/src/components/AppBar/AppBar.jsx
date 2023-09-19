@@ -1,14 +1,14 @@
 import { InputAdornment, SvgIcon, Typography, Box, Button, TextField, Badge, Tooltip } from '@mui/material'
 import { Close, Search, NotificationsNone, HelpOutline, Apps, Engineering } from '@mui/icons-material'
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import Account from './Account/Account'
 import ModeSelect from '../ModeSelect/ModeSelect'
-import { usePage } from '../../routers/PageContext'
+
 function AppBar() {
-  //const navigate = useNavigate()
+  const navigate = useNavigate()
   const [searchValue, setSearchValue] = useState('')
-  const { setPage } = usePage()
+
   const buttonCommonStyles = {
     '&.MuiButtonBase-root': {
       fontSize: '17px',
@@ -16,14 +16,10 @@ function AppBar() {
       border: 'none'
     }
   }
-  const handlePageChange = (newPage) => {
-    setPage(newPage)
-  }
+
   return (
     <Box sx={{
-      position: 'fixed',
       width: '100%',
-      zIndex: 1,
       height: (theme) => theme.webCustom.appBarHeight,
       display: 'flex',
       alignItems: 'center',
@@ -46,12 +42,13 @@ function AppBar() {
           display: { xs: 'none', md: 'flex' },
           gap: 2
         }}>
-          <Button variant="outlined" sx={buttonCommonStyles} onClick={() => handlePageChange('boardContent')}>DashBoard</Button>
-          <Button variant="outlined" sx={buttonCommonStyles} onClick={() => handlePageChange('userlist')}>UserList</Button>
-          <Button variant="outlined" sx={buttonCommonStyles} onClick={() => handlePageChange('movielist')}>MovieList</Button>
-          <Button variant="outlined" sx={buttonCommonStyles} onClick={() => handlePageChange('categorylist')}>CategoryList</Button>
-          <Button variant="outlined" sx={buttonCommonStyles} onClick={() => handlePageChange('countrylist')}>CountryList</Button>
-          <Button variant="outlined" sx={buttonCommonStyles} onClick={() => handlePageChange('directorlist')}>DirectorList</Button>
+          <Button variant="outlined" sx={buttonCommonStyles} onClick={() => navigate('/dashboard')}>DashBoard</Button>
+          <Button variant="outlined" sx={buttonCommonStyles} onClick={() => navigate('/userlist')}>UserList</Button>
+          <Button variant="outlined" sx={buttonCommonStyles} onClick={() => navigate('/movielist')}>MovieList</Button>
+          <Button variant="outlined" sx={buttonCommonStyles} onClick={() => navigate('/episodelist')}>EpisodeList</Button>
+          <Button variant="outlined" sx={buttonCommonStyles} onClick={() => navigate('/categorylist')}>CategoryList</Button>
+          <Button variant="outlined" sx={buttonCommonStyles} onClick={() => navigate('/countrylist')}>CountryList</Button>
+          <Button variant="outlined" sx={buttonCommonStyles} onClick={() => navigate('/directorlist')}>DirectorList</Button>
         </Box >
       </Box >
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>

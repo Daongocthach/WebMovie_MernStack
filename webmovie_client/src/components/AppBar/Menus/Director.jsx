@@ -2,25 +2,47 @@ import { useState, useEffect } from 'react'
 import { Button, Menu, Box, MenuItem, ListItemText } from '@mui/material'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import directorApi from '../../../apis/directorApi'
-function Director() {
+import movieApi from '../../../apis/movieApi'
+
+function Director({ setData }) {
     const [anchorEl, setAnchorEl] = useState(null)
     const [directors, setDirectors] = useState([])
+
     useEffect(() => {
         directorApi.getListDirectors()
-          .then(response => {
-            setDirectors(response.data)
-          })
-          .catch(error => {
-            console.error(error)
-          })
-      }, [])
+            .then(response => {
+                setDirectors(response.data)
+            })
+            .catch(error => {
+                console.error(error)
+            })
+    }, [])
+
     const open = Boolean(anchorEl)
+
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget)
     }
+
     const handleClose = () => {
         setAnchorEl(null)
     }
+
+    function handleDirector(director) {
+        var title = director.name
+        movieApi.getListMovieByDirectorId(director._id)
+            .then(response => {
+                const dataToStore = {
+                    title,
+                    movies: response.data
+                }
+                setData(dataToStore)
+            })
+            .catch(error => {
+                console.error(error)
+            })
+    }
+
     return (
         <Box>
             <Button
@@ -43,9 +65,9 @@ function Director() {
                     'aria-labelledby': 'basic-button'
                 }}
             >
-                {directors?.map((director, index) =>
-                    <MenuItem key={index}>
-                        <ListItemText>{director.name}</ListItemText>
+                {directors?.map((director) =>
+                    <MenuItem key={director._id} onClick={() => { handleDirector(director) }}>
+                        <ListItemText >{director.name}</ListItemText>
                     </MenuItem>
                 )}
             </Menu>
