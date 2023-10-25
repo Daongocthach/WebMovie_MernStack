@@ -1,6 +1,9 @@
-![image](https://github.com/Daongocthach/WebMovie_MernStack/assets/94102125/a3955cd2-2c3e-46cd-a3eb-f392df00b4da)# WebMovie_MernStack
-FrontEnd: ReactJs, Material UI
-BackEnd: NodeJs, ExpressJs, Mongodb
+# WebMovie_MernStack
+# FrontEnd: ReactJs, Material UI
+# BackEnd: NodeJs, ExpressJs, Mongodb
+# Other: Jwt, Redux
+![image](https://github.com/Daongocthach/WebMovie_MernStack/assets/94102125/a3955cd2-2c3e-46cd-a3eb-f392df00b4da)
+
 
 ![image](https://github.com/Daongocthach/WebMovie_MernStack/assets/94102125/b2b2f48b-5589-4de1-bca1-e97b6defb0fa)
 ![image](https://github.com/Daongocthach/WebMovie_MernStack/assets/94102125/2f9324eb-083e-4149-b9e3-9bd104b9baf9)
